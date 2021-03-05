@@ -6,6 +6,38 @@ import type { TypeMeta } from "./type";
 import type { TypeScope } from "../type-scope";
 import type { $BottomType } from "./bottom-type";
 
+import { GenericType } from "./generic-type";
+import { $BottomType } from "./bottom-type";
+import { $AppliedImmutable } from "./immutable-type";
+
+export class $Union extends GenericType {
+  static get name() {
+    return "$Union";
+  }
+
+  constructor(_, meta = {}) {
+    const parent = new TypeScope(meta.parent);
+    super("$Union", meta, [], parent, null);
+  }
+
+  isPrincipalTypeFor() {
+    return false;
+  }
+
+  equalsTo() {
+    return false;
+  }
+
+  isSuperTypeFor() {
+    return false;
+  }
+
+  applyGeneric(objects, loc, shouldBeMemoize = true, isCalledAsBottom = false) {
+
+  }
+}
+
+
 export class UnionType extends Type {
   static Boolean = new UnionType("boolean", {}, [Type.True, Type.False]);
 
