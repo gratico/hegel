@@ -31,7 +31,13 @@ export class $Union extends GenericType {
   }
 
   applyGeneric(objects, loc, shouldBeMemoize = true, isCalledAsBottom = false) {
-
+    const objectTypes = objects.map((obj, i) => {
+      if (obj instanceof $BottomType) {
+        obj = obj.unpack();
+      }
+      return obj;
+    });
+    return new UnionType(undefined, {}, objectTypes);
   }
 }
 
