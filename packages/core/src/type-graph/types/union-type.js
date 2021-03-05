@@ -7,8 +7,6 @@ import type { TypeScope } from "../type-scope";
 import type { $BottomType } from "./bottom-type";
 
 import { GenericType } from "./generic-type";
-import { $BottomType } from "./bottom-type";
-import { $AppliedImmutable } from "./immutable-type";
 
 export class $Union extends GenericType {
   static get name() {
