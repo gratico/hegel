@@ -6,6 +6,42 @@ import type { TypeMeta } from "./type";
 import type { TypeScope } from "../type-scope";
 import type { $BottomType } from "./bottom-type";
 
+import { GenericType } from "./generic-type";
+
+export class $Union extends GenericType {
+  static get name() {
+    return "$Union";
+  }
+
+  constructor(_, meta = {}) {
+    const parent = new TypeScope(meta.parent);
+    super("$Union", meta, [], parent, null);
+  }
+
+  isPrincipalTypeFor() {
+    return false;
+  }
+
+  equalsTo() {
+    return false;
+  }
+
+  isSuperTypeFor() {
+    return false;
+  }
+
+  applyGeneric(objects, loc, shouldBeMemoize = true, isCalledAsBottom = false) {
+    const objectTypes = objects.map((obj, i) => {
+      if (obj instanceof $BottomType) {
+        obj = obj.unpack();
+      }
+      return obj;
+    });
+    return new UnionType(undefined, {}, objectTypes);
+  }
+}
+
+
 export class UnionType extends Type {
   static Boolean = new UnionType("boolean", {}, [Type.True, Type.False]);
 

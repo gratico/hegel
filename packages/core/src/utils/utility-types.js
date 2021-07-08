@@ -20,6 +20,7 @@ import { $InstanceOf } from "../type-graph/types/instance-of-type";
 import { $StrictUnion } from "../type-graph/types/strict-union-type";
 import { $PropertyType } from "../type-graph/types/property-type";
 import { $Intersection } from "../type-graph/types/intersection-type";
+import { $Union } from "../type-graph/types/union-type";
 
 const mixUtilityTypes = (moduleScope) => {
   const typeScope = moduleScope.typeScope;
@@ -44,6 +45,10 @@ const mixUtilityTypes = (moduleScope) => {
     [
       "$Intersection",
       new $Intersection($Intersection.name, { parent: typeScope }),
+    ],
+    [
+      "$Union",
+      new $Union($Union.name, { parent: typeScope }),
     ],
     ["$Throws", new $Throws($Throws.name, { parent: typeScope })],
     ["$Immutable", new $Immutable($Immutable.name, { parent: typeScope })],
